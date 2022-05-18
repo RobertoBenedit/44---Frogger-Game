@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 function animate() {
     ctx1.clearRect(0, 0, canvas.width, canvas.height);
     ctx2.clearRect(0, 0, canvas.width, canvas.height);
@@ -6,14 +8,15 @@ function animate() {
     ctx5.clearRect(0, 0, canvas.width, canvas.height);
 
     handlerRipples();
-    ctx3.clearRect(0, 0, canvas.width, canvas.height);
-    handlerParticles();
     ctx2.drawImage(background_lvl2, 0, 0, canvas.width, canvas.height);
-    frogger.update();
+    handlerParticles();
     frogger.draw();
+    frogger.update();
+
     handlerObstacles();
     handleScoreBoard();
-    ctx4.drawImage(grass, 0, 0, canvas.width, canvas.height);
+    ctx4.drawImage(grass, 0, 0);
+    frame++;
     requestAnimationFrame(animate);
 }
 animate();
@@ -57,3 +60,20 @@ function handleScoreBoard() {
     ctx4.strokeText("Game Speed: " + gameSpeed.toFixed(1), 10, 137);
 }
 
+// collision detection
+function collision(first, second) {
+    return !(
+        first.x > second.x + second.width ||
+        first.x + first.width < second.x ||
+        first.y > second.y + second.height ||
+        first.y + first.height < second.y
+    );
+}
+
+function resetGame() {
+    score = 0;
+    collisionsCount++;
+    gameSpeed = 1;
+    frogger.x = canvas.width / 2 - frogger.width / 2;
+    frogger.y = canvas.height - frogger.height - 40;
+}
