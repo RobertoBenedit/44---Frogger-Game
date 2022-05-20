@@ -31,6 +31,7 @@ let score = 0;
 let collisionsCount = 0;
 let frame = 0;
 let gameSpeed = 1;
+let safe = false;
 
 const particlesArray = [];
 const maxParticles = 300;
@@ -58,3 +59,6 @@ log.src = "Frogger/log.png";
 
 const turtle = new Image();
 turtle.src = "Frogger/turtles.png";
+
+const froggerSprite = new Image();
+froggerSprite.src = "Frogger/frog_spritesheet.png";

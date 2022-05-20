@@ -162,4 +162,20 @@ function handlerObstacles() {
         }
     }
     // collision with logs/turtles
+    if (frogger.y > 100 && frogger.y < 250) {
+        safe = false;
+
+        for (let i = 0; i < logsArray.length; i++) {
+            if (collision(frogger, logsArray[i])) {
+                frogger.x += logsArray[i].speed;
+                safe = true;
+            }
+        }
+        if (!safe) {
+            for (let i = 0; i < 30; i++) {
+                ripplesArray.unshift(new Particle(frogger.x, frogger.y));
+            }
+            resetGame();
+        }
+    }
 }
